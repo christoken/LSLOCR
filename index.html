@@ -504,9 +504,10 @@ function onCaptureSuccess(imageData) {
 	alert("here1   "+ names );
 	//var n = (x.match(/\n/g)||[]).length;
 	var name =names.split(/\r?\n/);
-	alert("here2  "+ name);
+	var splitted = names.split("\n");   
+	alert("here2  "+ splitted);
 	var namearr= name.split(",");
-	alert("namearr  "+ namearr);
+	alert("namearr  "+ name);
 	name=namearr[2];
 	alert("here2  "+ name);
 	var idnum=recognizedText.blocks.blocktext[1];
