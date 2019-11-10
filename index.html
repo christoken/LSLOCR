@@ -499,12 +499,12 @@ function onCaptureSuccess(imageData) {
 	var str=JSON.stringify(recognizedText);
 	alert(str);
 	var names = str.blocks.blocktext[0];
-	alert(here);
+	alert("here");
 	//var n = (x.match(/\n/g)||[]).length;
 	var name =names.split(/\r?\n/);
 	var namearr= name.split(",");
 	name=namearr[2];
-	
+	alert("here2");
 	var idnum=str.blocks.blocktext[1];	
 	var idarr= idnum.split(" ");
 	idnum=idarr[2];	
