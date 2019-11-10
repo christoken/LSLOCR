@@ -346,8 +346,7 @@
 	    </div>
 	</div>
 	<div data-role="content">
-		<p>Press the button to capture</p>
-		<script>
+			<script>
 		$(document).ready(function(){
 		
 		$("#btnCapture").click(function(){
@@ -382,19 +381,24 @@
 	<div id="captureDetails">
 	<div class="ui-block">
 		<select name="captureType" id="captureType">
-			<option value="0">ID</option>
-			<option value="1">Vehicle</option>    
+			<option value="0">New ID</option>
+			<option value="1">Old ID</option>
+			<option value="2">Passport</option>
+			<option value="3">Drivers Licence</option>
+			<option value="4">Vehicle</option>    
 	  </select>
 	</div>
 		
-		<p>Surname: <span id="surname"></span></p>
-		<p>Other Name: <span id="othernames"></span></p>
-		<p>First Name: <span id="firstname"></span></p>
+		<p>Names: <span id="visitornames"></span></p>
 		<p>ID No: <span id="id_number"></span></p>
+		<p>Vehicle Reg. No: <span id="vehicle_reg"></span></p>
+		<p># of Occupants: <span id="occupants"></span></p>
+		
 	</div>
+	<div  style="width:70%" >   <input type="text" required="required" data-clear-btn="true" id="results"/></div>
 	
 	<div class="ui-grid-a ui-responsive">
-			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCapture" >Log</a></div>
+			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCapture" >Capture</a></div>
 			<div class="ui-block-b"> <a onclick="exitAlert('Are you sure you want exit App?');" data-role="button" data-icon="flat-settings" data-theme="b" id="btnexitLogCapture" >Exit App</a></div>
 	</div>
 	
@@ -463,13 +467,13 @@ function getCameraImage() {
 
 document.addEventListener("deviceready", onCameraDeviceReady, false);
 function onCameraDeviceReady() {
-    alert(navigator.camera);
-	alert("getCameraImage capturing");
+   // alert(navigator.camera);
+	//alert("getCameraImage capturing");
 		if(navigator.camera) {
-		alert("At capturing level");
+		//alert("At capturing level");
 		navigator.camera.getPicture(onCaptureSuccess, onCaptureFail, {
 			quality: 100, correctOrientation: true });
-			alert("getCameraImage capturing=>after");
+			//alert("getCameraImage capturing=>after");
 			
 			} else {
 				alert("The camera seem to have issues.");
@@ -484,10 +488,9 @@ function onCaptureSuccess(imageData) {
       // for sourceType Use 0,1,2,3 or 4
       // for returnType Use 0,1,2 or 3 // 3 returns duplicates[see table]
       function onCameraSuccess(recognizedText) {
-	   var element = document.getElementById('surname');
-            element.innerHTML=recognizedText;
-	  console.log(recognizedText);
-            alert(JSON.stringify(recognizedText));
+	   var element = document.getElementById('results');	   
+	   element.innerHTML=recognizedText;	  
+      alert(JSON.stringify(recognizedText));
          
             //Use above two lines to show recognizedText in html
             
