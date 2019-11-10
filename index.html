@@ -508,21 +508,21 @@ function onCaptureSuccess(imageData) {
 	alert("here2  "+ splitted[2]);
 	//var namearr= splitted.split(",");
 	//alert("namearr  "+ namearr);
-	//name=namearr[2];
+	namess=splitted[2];
 	//alert("here2  "+ name);
 	var idnum=recognizedText.blocks.blocktext[1];
 	var idarr= idnum.split(" ");
 	idnum=idarr[2];
-alert("here3  "+ idnum);	
+//alert("here3  "+ idnum);	
 var nameelement = document.getElementById('visitornames');	   
-nameelement.innerHTML=name;
+nameelement.innerHTML=namess;
 	
 var idnumelement = document.getElementById('id_number');	   
 idnumelement.innerHTML=idnum;
 	//x +=" "+str.blocks.blocktext[2];
 	//x +=" "+str.blocks.blocktext[3];
 		//x +=" "+str.blocks.blocktext[4];
-	alert ("ID=" +idnum+" Names= "+name);         
+	//alert ("ID=" +idnum+" Names= "+name);         
             //Use above two lines to show recognizedText in html
             
       }
