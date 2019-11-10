@@ -459,14 +459,19 @@
 
 <script>
 function getCameraImage() {
-alert("getCameraImage capturing");
-		//if(navigator.camera) {
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    alert(navigator.camera);
+	alert("getCameraImage capturing");
+		if(navigator.camera) {
 		navigator.camera.getPicture(onCameraSuccess, onCameraFail, {
 			quality: 100, correctOrientation: true });
 			alert("getCameraImage capturing=>after");
-			//} else {
-			//	alert("The camera seem to have issues.");
-			//}
+			} else {
+				alert("The camera seem to have issues.");
+			}
+}
+
     }
 ///capture image 
 function onSuccess(imageData) {
