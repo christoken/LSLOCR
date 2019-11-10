@@ -484,10 +484,11 @@ function onCaptureSuccess(imageData) {
       // for sourceType Use 0,1,2,3 or 4
       // for returnType Use 0,1,2 or 3 // 3 returns duplicates[see table]
       function onCameraSuccess(recognizedText) {
-	  console.log(recognizedText);
-            alert(recognizedText);
-          var element = document.getElementById('surname');
+	   var element = document.getElementById('surname');
             element.innerHTML=recognizedText;
+	  console.log(recognizedText);
+            alert(JSON.stringify(recognizedText));
+         
             //Use above two lines to show recognizedText in html
             
       }
