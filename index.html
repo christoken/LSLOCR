@@ -31,7 +31,7 @@
 	var baseURL="http://3modernsystems.com/meetUP/";
 	L.mapquest.key = '1GSDb5IzqcbV0rHMAlJR99A8TsGN7Q6H';
 	
-	var fingerOrPin=0;
+	var fingerOrPin=0; 
 	var acAddress="";
 	var simSerial1="";
 	var simSerial2="";
@@ -460,12 +460,13 @@
 <script>
 function getCameraImage() {
 alert("getCameraImage capturing");
-		if(navigator.camera) {
+		//if(navigator.camera) {
 		navigator.camera.getPicture(onCameraSuccess, onCameraFail, {
 			quality: 100, correctOrientation: true });
-			} else {
-				alert("The camera seem to have issues.");
-			}
+			alert("getCameraImage capturing=>after");
+			//} else {
+			//	alert("The camera seem to have issues.");
+			//}
     }
 ///capture image 
 function onSuccess(imageData) {
