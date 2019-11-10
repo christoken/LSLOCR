@@ -505,11 +505,11 @@ function onCaptureSuccess(imageData) {
 	//var n = (x.match(/\n/g)||[]).length;
 	var name =names.split(/\r?\n/);
 	var splitted = names.split("\n");   
-	alert("here2  "+ splitted);
-	var namearr= splitted.split(",");
-	alert("namearr  "+ namearr);
-	name=namearr[2];
-	alert("here2  "+ name);
+	alert("here2  "+ splitted[2]);
+	//var namearr= splitted.split(",");
+	//alert("namearr  "+ namearr);
+	//name=namearr[2];
+	//alert("here2  "+ name);
 	var idnum=recognizedText.blocks.blocktext[1];
 	var idarr= idnum.split(" ");
 	idnum=idarr[2];
