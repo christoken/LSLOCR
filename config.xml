@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.LSLMove" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="https://phonegap.com/ns/1.0">
+	<name>LSLOCR</name>
+	<description>
+		LSL OCR
+	</description>
+	<author email="chepken@gmail.com" href="www.lsl.co.ke">
+	  Chris Ken
+	</author>
+<icon src="images/LSL2.png" />
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+	<gap:plugin name="cordova-plugin-android-fingerprint-auth" source="npm" />
+	<gap:plugin name="cordova-plugin-exitapp" source="npm" />
+	<gap:plugin name="cordova-plugin-geolocation" source="npm" />
+	<gap:plugin name="cordova-plugin-device" source="npm" />
+	<gap:plugin name="cordova-plugin-sim" source="npm" />
+	<gap:plugin name="cordova-plugin-mobile-ocr" source="npm" />
+	
+	
+	
+	
+<access origin="*" />
+<allow-intent href="*" />
+<allow-navigation href="*" />
+<allow-intent href="geo:*" />
+<access origin="*.google.com"/>
+<access origin="*.googleapis.com"/>
+<access origin="*.gstatic.com"/>
+	
+	<preference name="phonegap-version" value="cli-8.0.0" />
+	
+</widget>
