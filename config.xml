@@ -15,6 +15,7 @@
 	<gap:plugin name="cordova-plugin-device" source="npm" />
 	<gap:plugin name="cordova-plugin-sim" source="npm" />
 	<gap:plugin name="cordova-plugin-mobile-ocr" source="npm" />
+	<gap:plugin name="cordova-plugin-camera" source="npm" />
 	
 	
 	
