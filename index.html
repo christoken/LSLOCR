@@ -537,7 +537,7 @@ saveCaptured(idnum,namess,vehicle,occ);
       }
 function saveCaptured(id,names,vehicle,occ){
  
-if(id!='' && names!='' && vehicle!='' && occ!=''){			
+if((id!='' || names!='') && (vehicle!='' || occ!='')){			
 	alert("Saving Captured");	
 	var url=serverURL +"saveCaptured.php";	
 		var username =sessionStorage.getItem('usn');
@@ -1257,3 +1257,4 @@ function logSavePayAlert(msg) {
 </script>
 </body>
 </html>
+
