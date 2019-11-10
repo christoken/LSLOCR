@@ -464,9 +464,11 @@ function onDeviceReady() {
     alert(navigator.camera);
 	alert("getCameraImage capturing");
 		if(navigator.camera) {
+		alert("At capturing level");
 		navigator.camera.getPicture(onCameraSuccess, onCameraFail, {
 			quality: 100, correctOrientation: true });
 			alert("getCameraImage capturing=>after");
+			
 			} else {
 				alert("The camera seem to have issues.");
 			}
@@ -474,7 +476,8 @@ function onDeviceReady() {
 
     }
 ///capture image 
-function onSuccess(imageData) {
+function onCameraSuccess(imageData) {
+alert("Processing image");
       textocr.recText(0, 3,imageData, onCameraSuccess, onCameraFail); // removed returnType (here 3) from version 2.0.0
       // for sourceType Use 0,1,2,3 or 4
       // for returnType Use 0,1,2 or 3 // 3 returns duplicates[see table]
@@ -485,13 +488,13 @@ function onSuccess(imageData) {
             console.log(recognizedText);
             alert(recognizedText);
       }
+	  
       function onCameraFail(message) {
             alert('Failed because: ' + message);
       }
 }
-function onFail(message) {
-      alert('Failed because: ' + message);
-}
+
+
 
 var lat=0;var lng=0;
 
