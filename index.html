@@ -506,8 +506,8 @@ function onCaptureSuccess(imageData) {
 	var name =names.split(/\r?\n/);
 	var splitted = names.split("\n");   
 	alert("here2  "+ splitted);
-	var namearr= name.split(",");
-	alert("namearr  "+ name);
+	var namearr= splitted.split(",");
+	alert("namearr  "+ namearr);
 	name=namearr[2];
 	alert("here2  "+ name);
 	var idnum=recognizedText.blocks.blocktext[1];
