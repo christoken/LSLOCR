@@ -404,10 +404,11 @@
 	var occ=$("#occupants").val();
 	var vehicle=$("#vehicle_reg").val();
 	var idnum=$("#id_number").val();
-	var namess=$("#visitornames").val();	
+	var namess=$("#visitornames").val();
+	var checktype=$("#checktype").val();	
 	
 	if(idnum!='' || namess!=''){		
-	  saveCaptured(idnum,namess,vehicle,occ);	
+	  saveCaptured(idnum,namess,vehicle,occ,checktype);	
 	  // $("#occupants").val('');
 		//$("#vehicle_reg").val('');
 		//$("#id_number").val('');
@@ -420,16 +421,22 @@
 	});
 		</script>
 	<div id="captureDetails">
-	<div class="ui-block">
-		<select name="captureType" id="captureType">
-			<option value="0">New ID</option>
+	<div class="ui-grid-a ui-responsive">
+	
+		<div class="ui-block-a"> 
+			<select name="captureType" id="captureType">
+			<option value="0">ID</option>
 			<option value="1">Vehicle</option> 
-			<option value="2">Old ID</option>
-			<option value="3">Passport</option>
-			<option value="4">Drivers Licence</option>
-			   
-	  </select>
-	</div>	
+			</select>
+		</div>
+		<div class="ui-block-b"> 
+			<select name="checktype" id="checktype">
+				<option value="0">CHECK IN</option>
+				<option value="1">CHECK OUT</option> 
+			</select>
+		</div>			
+	</div>
+	
 	<input type="text" data-clear-btn="true" placeholder="Vehicle Reg. No." id="vehicle_reg"> </input>
     <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupants"></input>
 	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="visitornames"> </input>
@@ -444,7 +451,7 @@
 	
 	</div>
 	<div data-role="footer" data-theme="e">
-		<h4>Location Log  &copy;Lavington Security Limited</h4>
+		<h4>Registration  &copy;Three Modern Systems</h4>
 	</div>
 </div>
 
@@ -613,7 +620,8 @@ function saveCaptured(id,names,vehicle,occ){
 		vehicle:vehicle,
 		occ:occ,
 		username:username,
-		telNo:telNo		
+		telNo:telNo,
+		checktype:checktype		
         },
         success : function(data){
 		alert(data);		
