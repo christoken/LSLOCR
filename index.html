@@ -350,11 +350,8 @@
 			<script>
 		$(document).ready(function(){
 		
-		$("#btnCapture").click(function(){
-		$("#occupants").val('');
-		$("#vehicle_reg").val('');
-		$("#id_number").val('');
-		$("#visitornames").val('');	
+		$("#btnCapture").click(function(){	
+		
 			//saveORlog=0;
 			//logtype=0;
 			//if($("#loc_telNo").val()!=''){
@@ -411,6 +408,10 @@
 	
 	if(idnum!='' || namess!=''){		
 	  saveCaptured(idnum,namess,vehicle,occ);	
+	   $("#occupants").val('');
+		$("#vehicle_reg").val('');
+		$("#id_number").val('');
+		$("#visitornames").val('');	
 	   }
 	else{
 	alert("You need to enter the correct details");	
@@ -529,7 +530,7 @@ function onCaptureSuccess(imageData) {
 	var splitstr=str3.split("\n");	
 	var names=splitstr[splitstr.length-1];
 	
-	names=names.replace("<", " ");
+	names=names.replace("/^<+/i,", " ");
 	alert("Names= "+names);///
 	var idnum=splitstr[splitstr.length-2];
 	var idnumarr=idnum.split("<");
