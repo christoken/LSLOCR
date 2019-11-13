@@ -601,7 +601,7 @@ idnumelement.innerHTML=idnum;
             alert('Capture Failed because: ' + message);
       }
 	  
-function saveCaptured(id,names,vehicle,occ){			
+function saveCaptured(id,names,vehicle,occ,checktype){			
 	alert("Saving Captured");	
 	var url=serverURL +"saveCaptured.php";	
 		var username =sessionStorage.getItem('usn');
