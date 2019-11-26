@@ -103,7 +103,7 @@
 				storeSession(username,names,telNo,telNo);//call function to say if we are logged in						
 			   //window.location.href = baseURL +"index.html#homePage"; //direct to the homepage if login is successfull 
 				//window.location.replace(baseURL +"index.html#payrollChanges") ;
-				window.location.replace("index.html#manualcapture") ;
+				window.location.replace("index.html#ocrcapture") ;
 			}
 			}
 			else {
@@ -149,198 +149,16 @@
                <h1>&copy;LSL</h1>
          </div>
       </div>
-<div data-role="page" id="manualcapture">
 
-	<!-- the div below is the home page's header -->
-	<div data-role="header">
-		<h1>Manual</h1>
-		<div data-role="navbar">
-	        <ul>
-	            <li><a href="#manualcapture"  class="ui-btn-active ui-state-persist" data-icon="star">Manual</a></li>
-				<li><a href="#ocrcapture" data-icon="star">OCR</a></li>
-				<li><a href="#searchMember"  data-icon="star">Search</a></li>
-						
-	        </ul>
-	    </div>
-		<h4 id="sessionText"></h4>
-	</div>
-	<!-- the div below is the home page's main content -->
-	<div data-role="content">
-	<script>
-	$(document).ready(function(){	
-	
-		var urlPF=serverURL +"selectpfIDNo.php";		
-		$("#pfIDNo").blur(function() {
-		var pfIDNo=$("#pfIDNo").val();
-                $.ajax({
-                    url: urlPF,
-                    dataType: "json",
-                    type:"POST",
-					data : {
-			pfIDNo:pfIDNo		
-			},
-        success: function (data) {                    
-			var JSONString = JSON.stringify(data);		
-			var obj=JSON.parse(JSONString);			
-			var pf=	obj[0].pf_number;	
-			var id=obj[0].id_number;
-			var surname=obj[0].surname;
-			var othernames=obj[0].othernames;
-			var assignment_code=obj[0].assignment_code;
-		$("#empNames").val (surname+" "+othernames);
-		$("#assignment").val(assignment_code);				
-                 },
-            }); 
-			});
-		/*	
-		$('#pfIDNo').autocomplete({ //beginning of animal breed autocomplete
-            minLength: 4,
-            source: function(request, response,term) {
-			console.log("Pressed key");
-                var param = request.term;
-                $.ajax({
-                    url: urlPF,
-                    dataType: "json",
-                    type:"POST",
-                    success: function (data) {
-                         array=($.map(data, function(item) {						 
-                             return { 
-                                 label: item.pf_number +" => " + item.surname,   //I am displaying both label and value                        
-                                 surname: item.surname,
-								 othernames:item.othernames,
-								 value: item.pf_number,
-								 assignment: item.assignment_code
-                                 };								 
-                             }));//END Success
-							 response($.ui.autocomplete.filter(array, request.term));
-							 //console.log("term is "+request.term);							 
-                        },
-                });//END AJAX
-            },
-            select: function(event, ui ) { // 
-			$("#empNames").val (ui.item.surname+" "+ui.item.othernames);
-			$("#assignment").val(ui.item.assignment);			
-               //console.log("Name is "+ui.item.label);
-			   //console.log("PF is "+ui.item.value);
-			   //console.log("Ass is "+ui.item.assignment);
-            } 
-        });	*/
-		
-	var urlAss=serverURL +"selectAssignment.php";			
-		$('#assignment').autocomplete({ //beginning of animal breed autocomplete
-            minLength: 4,
-            source: function(request, response,term) {
-			console.log("Pressed key");
-                var param = request.term;
-                $.ajax({
-                    url: urlAss,
-                    dataType: "json",
-                    type:"POST",
-                    success: function (data) {
-                         array=($.map(data, function(item) {						 
-                             return { 
-							 
-                           label: item.assignment_code +" => " + item.assignment_name,                                 
-						   value: item.assignment_code
-								
-                                 };								 
-                             }));//END Success
-							 response($.ui.autocomplete.filter(array, request.term));
-							 //console.log("term is "+request.term);							 
-                        },
-                });//END AJAX
-            },
-            select: function(event, ui ) { // 
-			
-            } 
-        });				
-		
-		$("#btnSavePaychanges").click(function(){
-		 saveORlog=1;
-		if($("#pfIDNo").val()!='' && $("#empNames").val()!='' && $("#assignment").val()!='' && $("#dateDeployedLeft").val()!='' &&
-		$("#salaryMonth").val()!='' && $("#daysWorked").val()!='' && $("#changeType").val()!=''){
-			//findPhone();
-			var x;
-			var y=$('#changeType option:selected').text();
-			if($("#changeType").val()==1){
-			x="Remove guard";
-			}
-			else {
-			x="Add guard";
-			}
-			
-			
-			logSavePayAlert("Are you sure you want to "+y+" ?");
-			//getLocation();
-		}else {
-			displayAlert("You need to enter the required details to proceed");
-		return;
-		}
-	
-		});
-		
-	});
-		</script>
-		<div id="payDetails">
-		
-	<div class="ui-grid-a ui-responsive">
-	 <div class="ui-block-a" style="width:30%"><label><b>PF/ID No.:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%">  <input type="text" required="required" data-clear-btn="true" placeholder="PF/ID No:" id="pfIDNo"/></div>
-	<div class="ui-block-a" style="width:30%" ><label> <b>Name:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" >   <input type="text" required="required" data-clear-btn="true" placeholder="Names:" id="empNames"/></div>
-	<div class="ui-block-a" style="width:30%" ><label><b>Assignment:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" >   <input type="text" required="required" data-clear-btn="true" placeholder="Assignment:" id="assignment"/></div>
-	<div class="ui-block-a" style="width:30%" ><label><b>Date</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" ><input type="date" placeholder="Date Deployed/Left:" id="dateDeployedLeft" data-inline="true" data-toggle="datepicker"/></div>
-	<!--
-	<div class="ui-block-a" style="width:30%" ><label><b>Period:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" ><input type="date" placeholder="Salary Month:" id="salaryMonth" data-inline="true" data-toggle="datepicker"/></div>
-	-->
-	<div class="ui-block-a" style="width:30%" ><label align="centre"><b>Days:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" ><input type="number" placeholder="Days Worked" id="daysWorked"/></div>
-	<div class="ui-block-a" style="width:30%" ><label><b>Change Type:</b> </label> </div>
-	<div class="ui-block-b" style="width:70%" >	
-		<select name="changeType" id="changeType">
-			<option value="" >Select</option>
-			<option value="0">Leave Reliever</option>
-			<option value="0">Additional guards</option>
-			<option value="0">Off Reliever</option>
-			<option value="0">Replacement</option>
-			<option value="0">New Employee</option>
-			<option value="0">New Assignment</option>
-			<option value="1">Old guard leaving</option>
-			<option value="1">Terminated Assignment</option>  			
-	  </select>
-	  </div>
-	</div>		
-		
-	</div>
-
-	<div class="ui-grid-a ui-responsive">
-	
-			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSavePaychanges" >Submit.</a></div>
-			
-			<div class="ui-block-b"> <a onclick="exitAlert('Are you sure you want exit App?');" data-role="button" data-icon="flat-settings" data-theme="e" id="btnExitPC" >Exit App</a></div>
-			
-	</div>	
-	</div>
-
-	<!-- the div below is the home page's footer -->
-	<div data-role="footer">
-		<h4>Location Log  &copy;Lavington Security Limited</h4>		
-		<a href="app-debug.3516483.102.apk" target="_blank">Download APP</a>
-	
-	</div>
-</div>
 
 <!-- the div below is a page - the about page -->
 <div data-role="page" id="ocrcapture">
 	<div data-role="header">
-		<h1>OCR</h1>
+		<h1>Visitor</h1>
 		<div data-role="navbar">
-	        <ul>
-				<li><a href="#manualcapture"  data-icon="star">Manual</a></li>
-				<li><a href="#ocrcapture" class="ui-btn-active ui-state-persist" data-icon="star">OCR</a></li>				
+	        <ul>				
+				<li><a href="#ocrcapture" class="ui-btn-active ui-state-persist" data-icon="star">Visitor</a></li>				
+				<li><a href="#resident" data-icon="star">Resident</a></li>	
 	            <li><a href="#searchMember"  data-icon="star">Search</a></li>	
 												
 				</ul>
@@ -406,9 +224,10 @@
 	var idnum=$("#id_number").val();
 	var namess=$("#visitornames").val();
 	var checktype=$("#checktype").val();	
-	
+	var who='Visitor';	
+	var resident_no=$("#resident_no").val();
 	if(idnum!='' || namess!=''){		
-	  saveCaptured(idnum,namess,vehicle,occ,checktype);	
+	  saveCaptured(idnum,namess,vehicle,occ,checktype,who,resident_no);	
 	  // $("#occupants").val('');
 		//$("#vehicle_reg").val('');
 		//$("#id_number").val('');
@@ -441,10 +260,11 @@
     <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupants"></input>
 	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="visitornames"> </input>
     <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_number"></input>
+	<input type="text"  data-clear-btn="true" placeholder="Host :" id="resident_no"></input>
 		
 	</div>	
 	<div class="ui-grid-b ui-responsive">
-			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCapture" >Capture</a></div>
+			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCapture" >Scan</a></div>
 			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmit" >Submit</a></div>
 			<div class="ui-block-c"> <a onclick="exitAlert('Are you sure you want exit App?');" data-role="button" data-icon="flat-settings" data-theme="b" id="btnexitLogCapture" >Exit</a></div>
 	</div>
@@ -455,13 +275,124 @@
 	</div>
 </div>
 
+<div data-role="page" id="resident">
+	<div data-role="header">
+		<h1>Resident</h1>
+		<div data-role="navbar">
+	        <ul>				
+				<li><a href="#ocrcapture" data-icon="star">Visitor</a></li>				
+				 <li><a href="#resident" class="ui-btn-active ui-state-persist"  data-icon="star">Resident</a></li>	
+	            <li><a href="#searchMember"  data-icon="star">Search</a></li>	
+												
+				</ul>
+	    </div>
+	</div>
+	<div data-role="content">
+			<script>
+$(document).ready(function(){		
+	$("#btnCaptureR").click(function(){		
+			//saveORlog=0;
+			//logtype=0;
+			//if($("#loc_telNo").val()!=''){
+			//check if the person has logged upto five in a day. 
+	createStorage();
+	if(checkLogingLimit()){	
+	//findPhone();
+	//logAlert("Are you sure you want to log?");
+	   getCameraImage();	   
+	  //increaseLogCount(); 
+
+	}
+	else{
+	alert("You seem to have reached your limit of loging");	
+	}
+	
+	});
+
+	$("#btnconfirm").click(function(){
+	
+	var vehicle=$("#vehicle_regR").val();
+	var id=$("#id_numberR").val();
+	var namess=$("#residentnames").val();
+	var checktype=$("#checktypeR").val();
+		
+	if(id!='' || vehicle!=''){		
+	 confirmResident(id,namess,vehicle);
+
+	}
+	else{
+	alert("You need to enter the correct details");	
+	}	
+		});
+		
+
+$("#btnSubmitR").click(function(){
+//check if id and names are in place;
+	var occ=$("#occupantsR").val();
+	var vehicle=$("#vehicle_regR").val();
+	var idnum=$("#id_numberR").val();
+	var namess=$("#residentnames").val();
+	var checktype=$("#checktypeR").val();
+	var resident_no=$("#residentno").val();
+	var who='Resident';	
+	
+	if(idnum!='' || namess!=''){		
+	  saveCaptured(idnum,namess,vehicle,occ,checktype,who,resident_no);	
+	  // $("#occupants").val('');
+		//$("#vehicle_reg").val('');
+		//$("#id_number").val('');
+		//$("#visitornames").val('');	
+	   }
+	else{
+	alert("You need to enter the correct details");	
+	}	
+		});
+		
+
+	});
+		</script>
+	<div id="captureDetailsR">
+	<div class="ui-grid-a ui-responsive">
+	
+		<div class="ui-block-a"> 
+			<select name="captureTypeR" id="captureTypeR">
+			<option value="0">ID</option>
+			<option value="1">Vehicle</option> 
+			</select>
+		</div>
+		<div class="ui-block-b"> 
+			<select name="checktypeR" id="checktypeR">
+				<option value="0">CHECK IN</option>
+				<option value="1">CHECK OUT</option> 
+			</select>
+		</div>			
+	</div>
+	
+	<input type="text" data-clear-btn="true" placeholder="Vehicle Reg. No." id="vehicle_regR"> </input>
+    <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupantsR"></input>
+	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="residentnames"> </input>
+    <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_numberR"></input>
+	<p>Resident No: <span id="residentno"></span></p>	
+	</div>	
+	<div class="ui-grid-b ui-responsive">
+			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCaptureR" >Scan</a></div>
+			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmitR" >Submit</a></div>
+			<div class="ui-block-c"> <a data-role="button" data-icon="flat-settings" data-theme="b" id="btnconfirm" >Confirm</a></div>
+	</div>
+	
+	</div>
+	<div data-role="footer" data-theme="e">
+		<h4>Resdidents  &copy;Three Modern Systems</h4>
+	</div>
+</div>
+
 <div data-role="page" id="searchMember">
 	<div data-role="header">
 		<h1>Search</h1>
 		<div data-role="navbar">
 	        <ul>
-	            <li><a href="#manualcapture"  data-icon="star">Manual</a></li>
-				  <li><a href="#ocrcapture"  data-icon="star">OCR</a></li>
+			   <li><a href="#ocrcapture" data-icon="star">Visitor</a></li>				
+				 <li><a href="#resident"   data-icon="star">Resident</a></li>	            
 				<li><a href="#searchMember" class="ui-btn-active ui-state-persist" data-icon="star">Search</a></li>				
 	          				
 				
@@ -469,7 +400,7 @@
 	    </div>
 	</div>
 	<div data-role="content">
-		<p>Press the Log button to log current location</p>
+		<p>Searching---</p>
 		<script>
 		$(document).ready(function(){		
 		$("#btnSaveLocation").click(function(){
@@ -546,11 +477,15 @@ function onCaptureSuccess(imageData) {
 	//alert("ID= "+idnum);///			
 	$("#visitornames").val(names); 
 	$("#id_number").val(idnum); 
+	///////////
+	$("#residentnames").val(names); 
+	$("#id_numberR").val(idnum); 
 		}
 		else if(capType==1){
 		//Car registration number car
 		var rgNo =recognizedText.blocks.blocktext[0];
 	    $("#vehicle_reg").val(rgNo); 
+		 $("#vehicle_regR").val(rgNo); 
 		}
 		else{
 		alert ("This option is still under development");
@@ -593,17 +528,60 @@ idnumelement.innerHTML=idnum;
 	
       }
 	  
-      function onCameraFail(message) {
+  function onCameraFail(message) {
             alert('Failed because: ' + message);
       }
 }
  function onCaptureFail(message) {
-            alert('Capture Failed because: ' + message);
+     alert('Capture Failed because: ' + message);
       }
-	  
-function saveCaptured(id,names,vehicle,occ,checktype){			
+	
+function confirmResident(id,names,vehicle){	
+	    var url=serverURL +"getResident.php";		
+		$.ajax(
+		{	
+        // Post select to url.
+        type : 'post',
+        url : url,
+        dataType : 'text', // expected returned data format.
+        data : {
+		id:id,
+		names:names,
+		vehicle:vehicle		
+        },
+        success : function(data){
+		//alert(data);
+		data=eval("("+data+")");		
+		document.getElementById("residentno").innerHTML="=> "+data;		
+		displayAlert("You are done confirming the details "+data);		
+		},
+	error:function(data,e) {
+    if (data.status==0) {
+        alert('You are offline!!\n Please Check Your Network.');
+    } else if(data.status==404) {
+        alert('Requested URL not found.');
+    } else if(data.status==500) {
+        alert('Internel Server Error.');
+    } else if(e=='parsererror') {
+        alert('Error.\nParsing JSON Request failed.');
+    } else if(e=='timeout'){
+        alert('Request Time out.');
+    } else {
+        alert('Unknow Error.\n'+data.responseText);
+		}
+	},
+        complete : function(data){	
+				
+			//document.getElementById("latitude").innerHTML=latitude;
+			//document.getElementById("longitude").innerHTML=longitude;
+			}
+		});
+		
+}	
+function saveCaptured(id,names,vehicle,occ,checktype,who,resident_no){			
 	alert("Saving Captured");	
-	var url=serverURL +"saveCaptured.php";	
+	var url=serverURL +"saveCaptured.php";
+	
 		var username =sessionStorage.getItem('usn');
 			username=eval("("+username+")");		
 		var telNo= sessionStorage.getItem("telNo");
@@ -621,7 +599,9 @@ function saveCaptured(id,names,vehicle,occ,checktype){
 		occ:occ,
 		username:username,
 		telNo:telNo,
-		checktype:checktype		
+		checktype:checktype,
+		who:who,
+		resident_no:resident_no
         },
         success : function(data){
 		alert(data);		
