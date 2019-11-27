@@ -216,6 +216,49 @@
 	}
 	
 		});
+		var urlAss=serverURL +"selectHost.php";			
+		$('#resident_no').autocomplete({ //beginning of animal breed autocomplete
+            minLength: 1,
+            source: function(request, response,term) {
+			console.log("Pressed key");
+                var param = request.term;
+                $.ajax({
+                    url: urlAss,
+                    dataType: "json",
+                    type:"POST",
+                    success: function (data) {
+                         array=($.map(data, function(item) {						 
+                             return { 
+							 
+                           label: item.resident_number +" => " + item.names,                                 
+						   value: item.resident_number
+								
+                                 };								 
+                             }));//END Success
+							 response($.ui.autocomplete.filter(array, request.term));
+							 //console.log("term is "+request.term);							 
+                        },
+                });//END AJAX
+            },
+            select: function(event, ui ) { // 
+			
+            } 
+        });	
+		
+	$("#btnconfirmV").click(function(){	
+		var vehicle=$("#vehicle_reg").val();
+		var id=$("#id_number").val();
+		var names=$("#visitornames").val();
+		var checktype=$("#checktype").val();
+		
+	if(id!='' || vehicle!=''){		
+  	 confirmVisitor(id,names,vehicle);
+
+	}
+	else{
+	alert("You need to enter the correct details");	
+	}	
+		});
 
 	$("#btnSubmit").click(function(){
 //check if id and names are in place;
@@ -261,12 +304,17 @@
 	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="visitornames"> </input>
     <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_number"></input>
 	<input type="text"  data-clear-btn="true" placeholder="Host :" id="resident_no"></input>
+	
+	<p>Resident No: <span id="residentnoV"></span></p>
+	<p>Last seen: <span id="lastseenV"></span></p>
+	<p>Check type: <span id="inoroutV"></span></p>
 		
 	</div>	
 	<div class="ui-grid-b ui-responsive">
-			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCapture" >Scan</a></div>
-			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmit" >Submit</a></div>
-			<div class="ui-block-c"> <a onclick="exitAlert('Are you sure you want exit App?');" data-role="button" data-icon="flat-settings" data-theme="b" id="btnexitLogCapture" >Exit</a></div>
+			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="a" id="btnCapture" >Scan</a></div>
+			<div class="ui-block-c"> <a data-role="button" data-icon="flat-settings" data-theme="b" id="btnconfirmV" >Confirm</a></div>
+			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmit" >Submit</a></div>			
+			
 	</div>
 	
 	</div>
@@ -372,12 +420,16 @@ $("#btnSubmitR").click(function(){
     <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupantsR"></input>
 	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="residentnames"> </input>
     <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_numberR"></input>
-	<p>Resident No: <span id="residentno"></span></p>	
+	<p>Resident No: <span id="residentno"></span></p>
+	<p>Last seen: <span id="lastseenR"></span></p>
+	<p>Check type: <span id="inoroutR"></span></p>	
+	
 	</div>	
 	<div class="ui-grid-b ui-responsive">
-			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnCaptureR" >Scan</a></div>
-			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmitR" >Submit</a></div>
+			<div class="ui-block-a"> <a data-role="button" data-icon="flat-settings" data-theme="a" id="btnCaptureR" >Scan</a></div>
 			<div class="ui-block-c"> <a data-role="button" data-icon="flat-settings" data-theme="b" id="btnconfirm" >Confirm</a></div>
+			<div class="ui-block-b"> <a data-role="button" data-icon="flat-settings" data-theme="d" id="btnSubmitR" >Submit</a></div>
+			
 	</div>
 	
 	</div>
@@ -550,9 +602,13 @@ function confirmResident(id,names,vehicle){
 		vehicle:vehicle		
         },
         success : function(data){
-		//alert(data);
-		data=eval("("+data+")");		
-		document.getElementById("residentno").innerHTML="=> "+data;		
+		alert(data);
+		data=eval("("+data+")");
+		var darr=data.split("_");		
+		document.getElementById("residentno").innerHTML="=> "+darr[0];
+		document.getElementById("lastseenR").innerHTML="=> "+darr[1];
+		document.getElementById("inoroutR").innerHTML="=> "+darr[2];		
+				
 		displayAlert("You are done confirming the details "+data);		
 		},
 	error:function(data,e) {
@@ -578,6 +634,52 @@ function confirmResident(id,names,vehicle){
 		});
 		
 }	
+function confirmVisitor(id,names,vehicle){	
+	    var url=serverURL +"getVisitor.php";		
+		$.ajax(
+		{	
+        // Post select to url.
+        type : 'post',
+        url : url,
+        dataType : 'text', // expected returned data format.
+        data : {
+		id:id,
+		names:names,
+		vehicle:vehicle		
+        },
+        success : function(data){
+		//alert(data);
+		data=eval("("+data+")");
+		var darr=data.split("_");		
+		document.getElementById("residentnoV").innerHTML="=> "+darr[0];
+		document.getElementById("lastseenV").innerHTML="=> "+darr[1];
+		document.getElementById("inoroutV").innerHTML="=> "+darr[2];		
+			$("#vehicle_reg").val(darr[3]);		
+		displayAlert("You are done confirming the details ");		
+		},
+	error:function(data,e) {
+    if (data.status==0) {
+        alert('You are offline!!\n Please Check Your Network.');
+    } else if(data.status==404) {
+        alert('Requested URL not found.');
+    } else if(data.status==500) {
+        alert('Internel Server Error.');
+    } else if(e=='parsererror') {
+        alert('Error.\nParsing JSON Request failed.');
+    } else if(e=='timeout'){
+        alert('Request Time out.');
+    } else {
+        alert('Unknow Error.\n'+data.responseText);
+		}
+	},
+        complete : function(data){	
+				
+			//document.getElementById("latitude").innerHTML=latitude;
+			//document.getElementById("longitude").innerHTML=longitude;
+			}
+		});
+		
+}
 function saveCaptured(id,names,vehicle,occ,checktype,who,resident_no){			
 	alert("Saving Captured");	
 	var url=serverURL +"saveCaptured.php";
