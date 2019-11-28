@@ -154,7 +154,7 @@
 <!-- the div below is a page - the about page -->
 <div data-role="page" id="ocrcapture">
 	<div data-role="header">
-		<h1>Visitor</h1>
+		<h1>Recordings</h1>
 		<div data-role="navbar">
 	        <ul>				
 				<li><a href="#ocrcapture" class="ui-btn-active ui-state-persist" data-icon="star">Visitor</a></li>				
@@ -301,7 +301,7 @@
 	
 	<input type="text" data-clear-btn="true" placeholder="Vehicle Reg. No." id="vehicle_reg"> </input>
     <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupants"></input>
-	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="visitornames"> </input>
+	<input type="text" data-clear-btn="true" placeholder="Names" id="visitornames"> </input>
     <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_number"></input>
 	<input type="text"  data-clear-btn="true" placeholder="Host :" id="resident_no"></input>
 	
@@ -418,7 +418,7 @@ $("#btnSubmitR").click(function(){
 	
 	<input type="text" data-clear-btn="true" placeholder="Vehicle Reg. No." id="vehicle_regR"> </input>
     <input type="text"  data-clear-btn="true" placeholder="Occupants:" id="occupantsR"></input>
-	<input type="text" data-clear-btn="true" placeholder="Visitor Names" id="residentnames"> </input>
+	<input type="text" data-clear-btn="true" placeholder="Names" id="residentnames"> </input>
     <input type="text"  data-clear-btn="true" placeholder="ID # :" id="id_numberR"></input>
 	<p>Resident No: <span id="residentno"></span></p>
 	<p>Last seen: <span id="lastseenR"></span></p>
@@ -602,14 +602,23 @@ function confirmResident(id,names,vehicle){
 		vehicle:vehicle		
         },
         success : function(data){
-		alert(data);
+		var data1=data;
+		//alert(data);
 		data=eval("("+data+")");
 		var darr=data.split("_");		
 		document.getElementById("residentno").innerHTML="=> "+darr[0];
 		document.getElementById("lastseenR").innerHTML="=> "+darr[1];
 		document.getElementById("inoroutR").innerHTML="=> "+darr[2];		
-				
-		displayAlert("You are done confirming the details "+data);		
+		$("#residentnames").val(darr[3]);
+		$("#id_numberR").val(darr[4]);
+		$("#vehicle_regR").val(darr[5]);
+		
+		if(data1==""){	
+			displayAlert("The details sort for are not found ");
+		}else{
+			displayAlert("See the details obtained");
+			}	
+			
 		},
 	error:function(data,e) {
     if (data.status==0) {
@@ -648,14 +657,22 @@ function confirmVisitor(id,names,vehicle){
 		vehicle:vehicle		
         },
         success : function(data){
-		//alert(data);
+		var data1=data;
+		alert(data);
 		data=eval("("+data+")");
 		var darr=data.split("_");		
 		document.getElementById("residentnoV").innerHTML="=> "+darr[0];
 		document.getElementById("lastseenV").innerHTML="=> "+darr[1];
 		document.getElementById("inoroutV").innerHTML="=> "+darr[2];		
-			$("#vehicle_reg").val(darr[3]);		
-		displayAlert("You are done confirming the details ");		
+		$("#vehicle_reg").val(darr[3]);	
+		$("#occupants").val(darr[4]);	
+		$("#visitornames").val(darr[5]);	
+		$("#resident_no").val(darr[0]);		
+		if(data1==""){	
+			displayAlert("The details sort for are not found ");
+		}else{
+			displayAlert("See the details obtained");
+			}
 		},
 	error:function(data,e) {
     if (data.status==0) {
@@ -681,7 +698,7 @@ function confirmVisitor(id,names,vehicle){
 		
 }
 function saveCaptured(id,names,vehicle,occ,checktype,who,resident_no){			
-	alert("Saving Captured");	
+	//alert("Saving Captured");	
 	var url=serverURL +"saveCaptured.php";
 	
 		var username =sessionStorage.getItem('usn');
@@ -706,8 +723,10 @@ function saveCaptured(id,names,vehicle,occ,checktype,who,resident_no){
 		resident_no:resident_no
         },
         success : function(data){
-		alert(data);		
-		displayAlert("You are done saving the details");		
+		//alert(data);		
+		//displayAlert("You are done saving the details");
+		data=eval("("+data+")");
+		displayAlert(data);			
 		},
 	error:function(data,e) {
     if (data.status==0) {
@@ -1401,3 +1420,4 @@ function logSavePayAlert(msg) {
 </script>
 </body>
 </html>
+
