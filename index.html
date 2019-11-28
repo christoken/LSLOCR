@@ -521,7 +521,8 @@ function onCaptureSuccess(imageData) {
 	var names=splitstr[splitstr.length-1];
 	
 	names=names.replace("<", " ");
-	alert("Names= "+names);///
+	//alert("Names= "+names);///
+	displayAlert("Returned info=> "+names);
 	var idnum=splitstr[splitstr.length-2];
 	var idnumarr=idnum.split("<");
 	idnum=idnumarr[1];
@@ -658,7 +659,7 @@ function confirmVisitor(id,names,vehicle){
         },
         success : function(data){
 		var data1=data;
-		alert(data);
+		//alert(data);
 		data=eval("("+data+")");
 		var darr=data.split("_");		
 		document.getElementById("residentnoV").innerHTML="=> "+darr[0];
