@@ -16,7 +16,7 @@
 	<gap:plugin name="cordova-plugin-sim" source="npm" />
 	<gap:plugin name="cordova-plugin-mobile-ocr" source="npm" />
 	<gap:plugin name="cordova-plugin-camera" source="npm" />
-	<gap:plugin name="cordova-plugin-geofence" source="npm" />
+	
 	
 	
 <access origin="*" />
@@ -27,6 +27,6 @@
 <access origin="*.googleapis.com"/>
 <access origin="*.gstatic.com"/>
 	
-	<preference name="phonegap-version" value="cli-9.0.0" />
+	<preference name="phonegap-version" value="cli-8.0.0" />
 	
 </widget>
