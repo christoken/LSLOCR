@@ -32,10 +32,12 @@
 <access origin="*.google.com"/>
 <access origin="*.googleapis.com"/>
 <access origin="*.gstatic.com"/>
-	<plugin name="cordova-plugin-compat" spec="6.2.0"/>
-	<preference name="android-minSdkVersion" value="16" />
-	<preference name="phonegap-version" value="cli-9.0.0" />
+	
+	
+	<preference name="phonegap-version" value="cli-8.0.0" />	
 	<preference name="UseLegacySwiftLanguageVersion" value="true" />
+	<preference name="cordova-plugin-add-swift-support" value="2.3" />
 	<preference name="swift-version" value="2.3" />
+	
 		
 </widget>
