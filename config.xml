@@ -29,5 +29,6 @@
 <access origin="*.gstatic.com"/>
 	
 	<preference name="phonegap-version" value="cli-8.0.0" />
-	
+	<preference name="cordova-platform" value="android@6.3.0" />
+		
 </widget>
