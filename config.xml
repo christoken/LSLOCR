@@ -16,11 +16,8 @@
 	<gap:plugin name="cordova-plugin-sim" source="npm" />
 	<gap:plugin name="cordova-plugin-mobile-ocr" source="npm" />
 	<gap:plugin name="cordova-plugin-camera" source="npm" />
-	<gap:plugin name="cordova-plugin-geofence" source="npm" />	
-	<gap:plugin name="cordova-plugin-actionsheet" source="npm" />
-	<gap:plugin name="cordova-plugin-add-android@7.0.0" source="npm" />
 	
-	<gap:plugin name="cordova-plugin-compat" source="npm" />
+	
 	
 	
 	
@@ -35,10 +32,9 @@
 <access origin="*.gstatic.com"/>
 	
 	
-	<preference name="phonegap-version" value="cli-8.0.0" />	
-	<preference name="UseLegacySwiftLanguageVersion" value="true" />
-	<preference name="cordova-plugin-add-android@7.0.0" value="2.3" />
-	<preference name="swift-version" value="2.3" />
+	<preference name="phonegap-version" value="cli-8.0.0" />
+	
+	
 	
 		
 </widget>
