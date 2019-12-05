@@ -34,7 +34,7 @@
 <access origin="*.gstatic.com"/>
 	<plugin name="cordova-plugin-compat" spec="6.2.0"/>
 	<preference name="android-minSdkVersion" value="16" />
-	<preference name="phonegap-version" value="cli-7.0.0" />
+	<preference name="phonegap-version" value="cli-9.0.0" />
 	<preference name="UseLegacySwiftLanguageVersion" value="true" />
 	<preference name="swift-version" value="2.3" />
 		
